@@ -32,6 +32,9 @@ async function main(): Promise<void> {
     const duration = Date.now() - startTime;
     core.info(`Glyphs created ${folder} duration: ${duration}ms`);
   }
+
+  const fontNames = [...fontFolders].sort();
+  await fsa.write(fsa.join(targetLocation, 'fonts.json'), JSON.stringify(fontNames));
 }
 
 main().catch((e: Error) => core.setFailed(e.message));
