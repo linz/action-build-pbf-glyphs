@@ -1,0 +1,21 @@
+{
+  "name": "action-build-pbf-glyphs",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "repository": "git@github.com:linz/action-build-pbf-glyphs.git",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --pretty",
+    "lint": "eslint 'src/**/*.ts' --quiet --fix",
+    "test": "ospec build/**/*.test.js",
+    "bundle": "npx esbuild src/action.ts --bundle --outdir=dist/ --platform=node"
+  },
+  "private": true,
+  "devDependencies": {
+    "@actions/core": "^1.9.0",
+    "@chunkd/fs": "^8.4.0",
+    "@linzjs/style": "^3.8.0",
+    "@types/node": "^18.0.0",
+    "esbuild": "^0.14.47"
+  }
+}

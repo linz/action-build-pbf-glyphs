@@ -4,7 +4,7 @@ author: "Blayne Chard <bchard@linz.govt.nz>"
 inputs:
   source:
     description: Source location of the fonts glob
-    default: "fonts/**/*.ttf"
+    default: "fonts/"
   target:
     description: Output location for the PBF glyphs
     default: "build/fonts/"
