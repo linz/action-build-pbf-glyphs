@@ -1,0 +1,13 @@
+name: Build PBF Glyphs
+description: "Convert Fonts into SDF PBF glyphs for use with maplibre"
+author: "Blayne Chard <bchard@linz.govt.nz>"
+inputs:
+  source:
+    description: Source location of the fonts glob
+    default: "fonts/**/*.ttf"
+  target:
+    description: Output location for the PBF glyphs
+    default: "build/fonts/"
+runs:
+  using: "node16"
+  main: "dist/action.js"
