@@ -7897,6 +7897,8 @@ async function main() {
     const duration = Date.now() - startTime;
     core2.info(`Glyphs created ${folder} duration: ${duration}ms`);
   }
+  const fontNames = [...fontFolders].sort();
+  await fsa.write(fsa.join(targetLocation, "fonts.json"), JSON.stringify(fontNames));
 }
 main().catch((e2) => core2.setFailed(e2.message));
 /*! fetch-blob. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
