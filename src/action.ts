@@ -1,7 +1,6 @@
 import * as core from '@actions/core';
 import { fsa } from '@chunkd/fs';
-import * as fs from 'fs';
-import path, { basename } from 'path';
+import path from 'path';
 import { findGlyphCommand, waitForChildProcess } from './glyph';
 
 function isFont(f: string): boolean {
@@ -33,8 +32,8 @@ async function main(): Promise<void> {
     const duration = Date.now() - startTime;
     core.info(`Glyphs created ${folder} duration: ${duration}ms`);
   }
-  const fonts = fs.readdirSync(targetLocation);
-  const fontNames = [...fonts.map((f) => basename(f))].sort();
+
+  const fontNames = [...fontFolders].sort();
   await fsa.write(fsa.join(targetLocation, 'fonts.json'), JSON.stringify(fontNames));
 }
 
