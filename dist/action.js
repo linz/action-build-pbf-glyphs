@@ -7883,10 +7883,12 @@ async function main() {
   const targetLocation = core2.getInput("target");
   const files = await fsa.toArray(fsa.list(SourceLocation));
   const fontFolders = /* @__PURE__ */ new Set();
+  const fontNames = [];
   for (const f3 of files) {
     if (!isFont(f3))
       continue;
     fontFolders.add(import_path4.default.dirname(f3));
+    fontNames.push(import_path4.default.basename(f3).split(".")[0]);
   }
   core2.info(`Found ${fontFolders.size} font folders from ${SourceLocation}`);
   const cmdPath = await findGlyphCommand();
@@ -7897,8 +7899,7 @@ async function main() {
     const duration = Date.now() - startTime;
     core2.info(`Glyphs created ${folder} duration: ${duration}ms`);
   }
-  const fontNames = [...fontFolders].sort();
-  await fsa.write(fsa.join(targetLocation, "fonts.json"), JSON.stringify(fontNames));
+  await fsa.write(fsa.join(targetLocation, "fonts.json"), JSON.stringify(fontNames.sort()));
 }
 main().catch((e2) => core2.setFailed(e2.message));
 /*! fetch-blob. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */

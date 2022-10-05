@@ -13,10 +13,12 @@ async function main(): Promise<void> {
 
   const files = await fsa.toArray(fsa.list(SourceLocation));
   const fontFolders = new Set<string>();
+  const fontNames: string[] = [];
   for (const f of files) {
     // Only TTF and OTF font types are supported
     if (!isFont(f)) continue;
     fontFolders.add(path.dirname(f));
+    fontNames.push(path.basename(f).split('.')[0]);
   }
 
   core.info(`Found ${fontFolders.size} font folders from ${SourceLocation}`);
@@ -33,8 +35,7 @@ async function main(): Promise<void> {
     core.info(`Glyphs created ${folder} duration: ${duration}ms`);
   }
 
-  const fontNames = [...fontFolders].sort();
-  await fsa.write(fsa.join(targetLocation, 'fonts.json'), JSON.stringify(fontNames));
+  await fsa.write(fsa.join(targetLocation, 'fonts.json'), JSON.stringify(fontNames.sort()));
 }
 
 main().catch((e: Error) => core.setFailed(e.message));
