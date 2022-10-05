@@ -178,7 +178,7 @@ var require_file_command = __commonJS({
     };
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.issueCommand = void 0;
-    var fs5 = __importStar(require("fs"));
+    var fs6 = __importStar(require("fs"));
     var os = __importStar(require("os"));
     var utils_1 = require_utils();
     function issueCommand(command, message) {
@@ -186,10 +186,10 @@ var require_file_command = __commonJS({
       if (!filePath) {
         throw new Error(`Unable to find environment variable for file command ${command}`);
       }
-      if (!fs5.existsSync(filePath)) {
+      if (!fs6.existsSync(filePath)) {
         throw new Error(`Missing file at path: ${filePath}`);
       }
-      fs5.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
+      fs6.appendFileSync(filePath, `${utils_1.toCommandValue(message)}${os.EOL}`, {
         encoding: "utf8"
       });
     }
@@ -6409,8 +6409,8 @@ var FsFile = class {
   constructor() {
     this.protocol = FsFile.protocol;
   }
-  static is(fs5) {
-    return fs5.protocol === FsFile.protocol;
+  static is(fs6) {
+    return fs6.protocol === FsFile.protocol;
   }
   source(filePath) {
     return new SourceFile(filePath);
@@ -7699,8 +7699,8 @@ var FsHttp = class {
   constructor() {
     this.protocol = FsHttp.protocol;
   }
-  static is(fs5) {
-    return fs5.protocol === FsHttp.protocol;
+  static is(fs6) {
+    return fs6.protocol === FsHttp.protocol;
   }
   source(filePath) {
     return new SourceHttp(filePath);
@@ -7824,6 +7824,7 @@ fsa.register("http://", fsHttp);
 fsa.register("https://", fsHttp);
 
 // src/action.ts
+var fs5 = __toESM(require("fs"));
 var import_path4 = __toESM(require("path"));
 
 // src/glyph.ts
@@ -7897,7 +7898,8 @@ async function main() {
     const duration = Date.now() - startTime;
     core2.info(`Glyphs created ${folder} duration: ${duration}ms`);
   }
-  const fontNames = [...fontFolders].sort();
+  const fonts = fs5.readdirSync(targetLocation);
+  const fontNames = [...fonts.map((f3) => (0, import_path4.basename)(f3))].sort();
   await fsa.write(fsa.join(targetLocation, "fonts.json"), JSON.stringify(fontNames));
 }
 main().catch((e2) => core2.setFailed(e2.message));
