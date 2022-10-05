@@ -7888,7 +7888,8 @@ async function main() {
     if (!isFont(f3))
       continue;
     fontFolders.add(import_path4.default.dirname(f3));
-    fontNames.push(import_path4.default.basename(f3).split(".")[0]);
+    const extension = import_path4.default.extname(f3);
+    fontNames.push(import_path4.default.basename(f3, extension));
   }
   core2.info(`Found ${fontFolders.size} font folders from ${SourceLocation}`);
   const cmdPath = await findGlyphCommand();

@@ -18,7 +18,8 @@ async function main(): Promise<void> {
     // Only TTF and OTF font types are supported
     if (!isFont(f)) continue;
     fontFolders.add(path.dirname(f));
-    fontNames.push(path.basename(f).split('.')[0]);
+    const extension = path.extname(f);
+    fontNames.push(path.basename(f, extension));
   }
 
   core.info(`Found ${fontFolders.size} font folders from ${SourceLocation}`);
